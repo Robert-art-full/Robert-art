@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Lendário ⚡ CSS Edition</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #0a0a14;
+      color: #d0faff;
+      font-family: 'Courier New', monospace;
+      line-height: 1.6;
+    }
+
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      padding: 20px 40px;
+      background: rgba(10, 10, 20, 0.95);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #00ffe7;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      color: #00ffe7;
+      text-shadow: 0 0 10px #00ffe7;
+    }
+
+    nav a {
+      color: #d0faff;
+      text-decoration: none;
+      margin-left: 24px;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #00ffe7;
+    }
+
+    main {
+      padding: 140px 20px 60px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    section {
+      margin-bottom: 80px;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 2.5rem;
+      color: #00ffe7;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00ffe7;
+    }
+
+    section p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: #141425;
+      padding: 30px;
+      border: 2px solid #00ffe7;
+      border-radius: 14px;
+      box-shadow: 0 0 10px #00ffe7, 0 0 25px #00ffe7;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 20px #00ffe7, 0 0 50px #00ffe7;
+    }
+
+    .card h3 {
+      color: #6afcff;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #d0faff;
+      font-size: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9rem;
+      color: #555;
+      border-top: 2px solid #00ffe7;
+      margin-top: 60px;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0,255,231,0.2) 0%, transparent 70%);
+      animation: pulse 6s infinite ease-in-out;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.2;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 0.4;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Porque Desenvolvedor? ⚡</h1>
+    <nav>
+      <a href="#sobre">Sobre</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="sobre">
+      <h2>📄 Sobre Mim</h2>
+      <p>👾 Olá, meu nome é Robert Monteiro da Silva, e sou um Desenvolvedor Full Stack apaixonado por tecnologia, inovação e experiências digitais que marcam. Desde o início da minha trajetória no mundo do desenvolvimento, sempre acreditei que um bom projeto vai além de código funcionando — ele precisa encantar, surpreender e resolver problemas de forma criativa.</p>
+    </section>
+
+    <section id="projetos">
+      <h2>🚀 O que eu faço</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>📊 Banco de Dados:</h3>
+          <p>Tenho conhecimento em MySQL, PostgreSQL, SQL Server e Oracle, cuidando desde a modelagem até a otimização de consultas, garantindo integração rápida e confiável com as aplicações.</p>
+        </div>
+        <div class="card">
+          <h3>🎨 Meu diferencial:</h3>
+          <p>Sou fascinado por UI/UX futurista e designs que fogem do comum. Curto criar páginas e sistemas com aquela cara sci-fi, efeitos neon, partículas animadas e elementos que deixam qualquer projeto com identidade única. Acredito que a experiência do usuário deve ser memorável — e isso só acontece quando juntamos boa performance, bom código e bom gosto.</p>
+        </div>
+        <div class="card">
+          <h3>🔥 Curiosidades sobre mim:</h3>
+          <p>- Amo projetos desafiadores e ideias fora da caixa.</p>
+<p>- Faço questão de acompanhar as tendências dev e aplicar novidades em interfaces e back-ends otimizados.</p>
+<p>- Gosto de misturar tecnologia e arte digital nos meus layouts.</p>
+<p>- Sou daquele tipo de dev que adora refatorar e deixar o código mais limpo e performático.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato">
+      <h2>Contato</h2>
+      <p>Email: <strong>robertgame339@gmail.com</strong></p>
+    </section>
+  </main>
+
+  <footer>
+    Feito pelo DEV - Robert Monteiro ⚡ — 2025
+  </footer>
+</body>
+</html>
