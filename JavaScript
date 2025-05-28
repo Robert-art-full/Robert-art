@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Lendário ⚡ Full Stack 2025</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a14;
+      color: #ffffff;
+      font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    header h1 {
+      color: #00ffe7;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      margin-left: 30px;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    nav a:hover { color: #00ffe7; }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .hero h2 {
+      font-size: 4rem;
+      color: #00ffe7;
+      text-shadow: 0 0 15px #00ffe7;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin-bottom: 40px;
+      color: #d0faff;
+    }
+    .btn {
+      background: #00ffe7;
+      color: #0a0a14;
+      padding: 15px 40px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 20px #00ffe7, 0 0 40px #00ffe7;
+    }
+    .btn:hover {
+      background: #0a0a14;
+      color: #00ffe7;
+      border: 2px solid #00ffe7;
+      box-shadow: 0 0 30px #00ffe7;
+    }
+
+    .section {
+      padding: 100px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .section h3 {
+      font-size: 3rem;
+      color: #00ffe7;
+      margin-bottom: 30px;
+    }
+    .section p {
+      font-size: 1.2rem;
+      color: #d0faff;
+      line-height: 1.6;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .skill-card {
+      background: #141425;
+      border: 2px solid #00ffe7;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 0 20px #00ffe7;
+    }
+    .skill-card h4 {
+      color: #6afcff;
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+    .skill-card p {
+      font-size: 1rem;
+      color: #d0faff;
+    }
+
+    footer {
+      padding: 50px 20px;
+      text-align: center;
+      border-top: 2px solid #00ffe7;
+      color: #555;
+      margin-top: 80px;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Lendário ⚡</h1>
+    <nav>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contato</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Eleve o padrão.</h2>
+    <p>Do front-end interativo ao back-end performático, entrego projetos lendários com interfaces de impacto e sistemas robustos. Aqui, código é atitude.</p>
+    <button class="btn" onclick="scrollToSkills()">Ver Tecnologias</button>
+  </section>
+
+  <section class="section fade-in" id="skills">
+    <h3>Tecnologias & Skills</h3>
+    <p>Ferramentas, linguagens e stacks que compõem meu arsenal para desenvolver soluções que impressionam e entregam resultado real.</p>
+    
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h4>🚀 Front-End</h4>
+        <p>React, Tailwind, JavaScript, HTML5, CSS3, Animações CSS e layouts responsivos com performance insana.</p>
+      </div>
+      <div class="skill-card">
+        <h4>🖥️ Back-End</h4>
+        <p>Python, PHP, Java e APIs RESTful com segurança, escalabilidade e performance impecável.</p>
+      </div>
+      <div class="skill-card">
+        <h4>📊 Banco de Dados</h4>
+        <p>MySQL, PostgreSQL, SQL Server e Oracle — modelagem eficiente, integração fluída e dados sob controle.</p>
+      </div>
+      <div class="skill-card">
+        <h4>🎨 UI Sci-Fi</h4>
+        <p>Interfaces futuristas com partículas, efeitos neon e experiências digitais memoráveis. Design é respeito pelo usuário.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Feito com ⚡ JavaScript lendário — 2025
+  </footer>
+
+  <script>
+    function scrollToSkills() {
+      document.getElementById('skills').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    window.addEventListener('scroll', () => {
+      const fadeIns = document.querySelectorAll('.fade-in');
+      fadeIns.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          el.classList.add('visible');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
