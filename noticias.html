@@ -1,0 +1,132 @@
+<?php
+session_start();
+
+// Inicializa array de notícias na sessão
+if (!isset($_SESSION['noticias'])) {
+    $_SESSION['noticias'] = [];
+}
+
+// Adicionar notícia ao enviar o formulário
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['titulo']) && !empty($_POST['conteudo'])) {
+    $novaNoticia =
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>Mini Sistema de Notícias</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background: #1a252f;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        nav {
+            background: #34495e;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: #ecf0f1;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            flex: 1;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        form input, form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        form button {
+            padding: 10px 20px;
+            background: #27ae60;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .noticia {
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding: 12px 0;
+        }
+        .noticia h2 {
+            margin-bottom: 5px;
+        }
+        .data {
+            color: #ddd;
+            font-size: 0.85em;
+            margin-bottom: 8px;
+        }
+        footer {
+            background: #1a252f;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>📰 Mini Sistema de Notícias</h1>
+</header>
+
+<nav>
+    <a href="#">Início</a>
+    <a href="#noticias">Notícias</a>
+    <a href="#">Sobre</a>
+</nav>
+
+<div class="container">
+    <form method="POST" action="">
+        <input type="text" name="titulo" placeholder="Título da notícia" required />
+        <textarea name="conteudo" rows="4" placeholder="Conteúdo da notícia" required></textarea>
+        <button type="submit">Adicionar Notícia</button>
+    </form>
+
+    <div id="noticias">
+        <?php if (empty($_SESSION['noticias'])): ?>
+            <p>Ainda não há notícias cadastradas.</p>
+        <?php else: ?>
+            <?php foreach ($_SESSION['noticias'] as $noticia): ?>
+                <div class="noticia">
+                    <h2><?= $noticia['titulo'] ?></h2>
+                    <div class="data"><?= $noticia['data'] ?></div>
+                    <p><?= nl2br($noticia['conteudo']) ?></p>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+</div>
+
+<footer>
+    &copy; <?= date('Y') ?> Sistema de Notícias PHP — Feito com ❤️
+</footer>
+
+</body>
+</html>
