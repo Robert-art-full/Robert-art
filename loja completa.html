@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>Loja Tech Gamer Completa</title>
+<style>
+  * {margin:0; padding:0; box-sizing:border-box;}
+  body {font-family: 'Segoe UI', sans-serif; background: #0a0a0f; color:#eee;}
+  header {background:#111; padding:20px; text-align:center; border-bottom:3px solid #f57c00;}
+  header h1 {color:#f57c00; font-size:30px;}
+  nav {background:#1c1c26; padding:12px; text-align:center; position:sticky; top:0; z-index:10;}
+  nav a {color:#ddd; margin:0 18px; text-decoration:none; font-weight:600; transition:0.3s;}
+  nav a:hover {color:#f57c00;}
+  .produtos {max-width:1300px; margin:20px auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; padding:20px;}
+  .card {background:#12121a; border:1px solid #222; border-radius:8px; overflow:hidden; position:relative; transition:0.3s;}
+  .card:hover {box-shadow:0 0 20px rgba(245,124,0,0.4); transform:translateY(-5px);}
+  .card img {width:100%; height:200px; object-fit:cover; transition:opacity 0.4s ease;}
+  .card-content {padding:14px;}
+  .card-content h3 {font-size:18px; margin-bottom:8px;}
+  .preco {color:#f57c00; font-size:16px; margin-bottom:8px;}
+  .estoque {font-size:13px; color:#6f6; margin-bottom:10px;}
+  .btn {background:#f57c00; color:#fff; border:none; padding:10px; width:100%; border-radius:4px; cursor:pointer; font-weight:600; transition:0.3s;}
+  .btn:hover {background:#ff8c1a;}
+  footer {background:#111; padding:16px; text-align:center; font-size:14px; color:#888; border-top:1px solid #333; margin-top:50px;}
+  .carrinho {position:fixed; right:-300px; top:0; width:300px; height:100%; background:#1c1c26; box-shadow:-3px 0 8px rgba(0,0,0,0.5); transition:0.4s; overflow-y:auto; z-index:20; padding:20px;}
+  .carrinho.open {right:0;}
+  .carrinho h2 {color:#f57c00; margin-bottom:10px;}
+  .carrinho-item {border-bottom:1px solid #333; padding:8px 0; color:#ccc; display:flex; justify-content:space-between; align-items:center;}
+  .carrinho-item span {font-size:13px; color:#999;}
+  .remover-btn {background: transparent; border:none; color:#f57c00; cursor:pointer; font-weight:700; font-size:16px;}
+  .toggle-btn {position:fixed; right:20px; bottom:20px; background:#f57c00; color:#fff; border:none; padding:14px; border-radius:50%; font-size:18px; cursor:pointer; box-shadow:0 0 12px rgba(245,124,0,0.5); z-index:30;}
+</style>
+</head>
+<body>
+<header>
+  <h1>🔥 Loja Tech Gamer</h1>
+</header>
+<nav>
+  <a href="#">Início</a>
+  <a href="#produtos">Produtos</a>
+  <a href="#">Ofertas</a>
+  <a href="#">Contato</a>
+</nav>
+<div class="produtos" id="produtos">
+  <div class="card">
+    <img src="https://source.unsplash.com/featured/400x300?gpu" alt="RTX 4090 Gamer">
+    <div class="card-content">
+      <h3>RTX 4090 Gamer</h3>
+      <p class="preco">R$ 12.499,90</p>
+      <p class="estoque">Estoque: 7 unidades</p>
+      <button class="btn" onclick="adicionarCarrinho('RTX 4090 Gamer', 12499.90)">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://source.unsplash.com/featured/400x300?notebook" alt="Notebook Ryzen 7">
+    <div class="card-content">
+      <h3>Notebook Ryzen 7</h3>
+      <p class="preco">R$ 5.299,00</p>
+      <p class="estoque">Estoque: 12 unidades</p>
+      <button class="btn" onclick="adicionarCarrinho('Notebook Ryzen 7', 5299.00)">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://source.unsplash.com/featured/400x300?keyboard" alt="Teclado Mecânico RGB">
+    <div class="card-content">
+      <h3>Teclado Mecânico RGB</h3>
+      <p class="preco">R$ 599,00</p>
+      <p class="estoque">Estoque: 25 unidades</p>
+      <button class="btn" onclick="adicionarCarrinho('Teclado Mecânico RGB', 599.00)">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://source.unsplash.com/featured/400x300?monitor" alt="Monitor 240Hz Gamer">
+    <div class="card-content">
+      <h3>Monitor 240Hz Gamer</h3>
+      <p class="preco">R$ 2.399,00</p>
+      <p class="estoque">Estoque: 9 unidades</p>
+      <button class="btn" onclick="adicionarCarrinho('Monitor 240Hz Gamer', 2399.00)">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://source.unsplash.com/featured/400x300?headset" alt="Headset Gamer 7.1">
+    <div class="card-content">
+      <h3>Headset Gamer 7.1</h3>
+      <p class="preco">R$ 499,00</p>
+      <p class="estoque">Estoque: 18 unidades</p>
+      <button class="btn" onclick="adicionarCarrinho('Headset Gamer 7.1', 499.00)">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://source.unsplash.com/featured/400x300?mouse" alt="Mouse Gamer RGB">
+    <div class="card-content">
+      <h3>Mouse Gamer RGB</h3>
+      <p class="preco">R$ 299,00</p>
+      <p class="estoque">Estoque: 30 unidades</p>
+      <button class="btn" onclick="adicionarCarrinho('Mouse Gamer RGB', 299.00)">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://source.unsplash.com/featured/400x300?ssd" alt="SSD NVMe 1TB">
+    <div class="card-content">
+      <h3>SSD NVMe 1TB</h3>
+      <p class="preco">R$ 850,00</p>
+      <p class="estoque">Estoque: 20 unidades</p>
+      <button class="btn" onclick="adicionarCarrinho('SSD NVMe 1TB', 850.00)">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://source.unsplash.com/featured/400x300?pc" alt="PC Gamer Completo">
+    <div class="card-content">
+      <h3>PC Gamer Completo</h3>
+      <p class="preco">R$ 7.999,00</p>
+      <p class="estoque">Estoque: 5 unidades</p>
+      <button class="btn" onclick="adicionarCarrinho('PC Gamer Completo', 7999.00)">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+
+  <!-- Produtos extras adicionados -->
+  <div class="card">
+    <img src="https://source.unsplash.com/featured/400x300?ram" alt="Memória RAM 16GB DDR4">
+    <div class="card-content">
+      <h3>Memória RAM 16GB DDR4</h3>
+      <p class="preco">R$ 400,00</p>
+      <p class="estoque">Estoque: 40 unidades</p>
+      <button class="btn" onclick="adicionarCarrinho('Memória RAM 16GB DDR4', 400.00)">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://source.unsplash.com/featured/400x300?cooler" alt="Cooler RGB para CPU">
+    <div class="card-content">
+      <h3>Cooler RGB para CPU</h3>
+      <p class="preco">R$ 250,00</p>
+      <p class="estoque">Estoque: 15 unidades</p>
+      <button class="btn" onclick="adicionarCarrinho('Cooler RGB para CPU', 250.00)">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://source.unsplash.com/featured/400x300?motherboard" alt="Placa Mãe Gaming">
+    <div class="card-content">
+      <h3>Placa Mãe Gaming</h3>
+      <p class="preco">R$ 1.200,00</p>
+      <p class="estoque">Estoque: 10 unidades</p>
+      <button class="btn" onclick="adicionarCarrinho('Placa Mãe Gaming', 1200.00)">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://source.unsplash.com/featured/400x300?power-supply" alt="Fonte 750W 80 Plus">
+    <div class="card-content">
+      <h3>Fonte 750W 80 Plus</h3>
+      <p class="preco">R$ 450,00</p>
+      <p class="estoque">Estoque: 18 unidades</p>
+      <button class="btn" onclick="adicionarCarrinho('Fonte 750W 80 Plus', 450.00)">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://source.unsplash.com/featured/400x300?chair" alt="Cadeira Gamer">
+    <div class="card-content">
+      <h3>Cadeira Gamer</h3>
+      <p class="preco">R$ 1.100,00</p>
+      <p class="estoque">Estoque: 7 unidades</p>
+      <button class="btn" onclick="adicionarCarrinho('Cadeira Gamer', 1100.00)">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+  <div class="card">
+    <img src="https://source.unsplash.com/featured/400x300?router" alt="Roteador Gamer 5G">
+    <div class="card-content">
+      <h3>Roteador Gamer 5G</h3>
+      <p class="preco">R$ 370,00</p>
+      <p class="estoque">Estoque: 14 unidades</p>
+      <button class="btn" onclick="adicionarCarrinho('Roteador Gamer 5G', 370.00)">Adicionar ao Carrinho</button>
+    </div>
+  </div>
+</div>
+<button class="toggle-btn" onclick="toggleCarrinho()">🛒</button>
+<div class="carrinho" id="carrinho">
+  <h2>🛒 Carrinho</h2>
+  <div id="itensCarrinho"></div>
+  <div id="totalCompra" style="color:#f57c00; margin-top: 10px; font-weight:700;">Total: R$ 0,00</div>
+</div>
+<footer>
+  &copy; 2025 Loja Tech Gamer — Todos os direitos reservados.
+</footer>
+<script>
+function toggleCarrinho() {
+  document.getElementById('carrinho').classList.toggle('open');
+}
+
+let total = 0;
+
+function adicionarCarrinho(nome, preco) {
+  total += preco;
+  atualizarTotal();
+
+  const item = document.createElement('div');
+  item.className = 'carrinho-item';
+  item.innerHTML = `<strong>${nome}</strong> <span>R$ ${preco.toFixed(2).replace('.', ',')}</span>
+                    <button class="remover-btn" onclick="removerItem(this, ${preco})">×</button>`;
+  document.getElementById('itensCarrinho').appendChild(item);
+}
+
+function removerItem(btn, preco) {
+  const item = btn.parentElement;
+  item.remove();
+  total -= preco;
+  atualizarTotal();
+}
+
+function atualizarTotal() {
+  document.getElementById('totalCompra').textContent = 'Total: R$ ' + total.toFixed(2).replace('.', ',');
+}
+</script>
+</body>
+</html>
