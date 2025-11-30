@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login e Cadastro Interativos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.5s ease;
+        }
+        body.login {
+            background: linear-gradient(135deg, #ff7e5f 0%, #000000 100%); /* Laranja com degrade de preto para login */
+        }
+        body.signup {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Azul/roxo para cadastro */
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            transform: scale(1);
+        }
+        .container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .form-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        .form-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        label {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            color: #999;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        input:focus + label,
+        input:not(:placeholder-shown) + label {
+            top: -0.5rem;
+            left: 0.75rem;
+            font-size: 0.875rem;
+            color: #667eea;
+        }
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+        }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #667eea;
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+        .toggle-password:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+        small {
+            display: block;
+            color: #ff4b4b;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        small.show {
+            opacity: 1;
+        }
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        button:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .success {
+            text-align: center;
+            color: #4fff4b;
+            font-weight: bold;
+            margin-top: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .success.show {
+            opacity: 1;
+        }
+        .loader {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .loader::after {
+            content: "";
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .switch {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .switch a {
+            color: #667eea;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .switch a:hover {
+            text-decoration: underline;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 4px;
+            background: #4fff4b;
+            transition: width 0.5s ease;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body class="login">
+    <div class="container">
+        <!-- Seção de Login -->
+        <div id="loginSection" class="form-section active">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="email" id="loginEmail" placeholder=" ">
+                    <label for="loginEmail">Email</label>
+                    <small></small>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="loginPassword" placeholder=" ">
+                    <label for="loginPassword">Senha</label>
+                    <span class="toggle-password" id="toggleLoginPassword">👁️</span>
+                    <small></small>
+                </div>
+                <button type="submit" id="loginBtn">Entrar</button>
+            </form>
+            <div class="success"></div>
+            <div class="loader"></div>
+            <div class="progress-bar" id="loginProgress"></div>
+            <div class="switch">
+                <a id="switchToSignup">Não tem conta? Cadastre-se</a>
+            </div>
+        </div>
+
+        <!-- Seção de Cadastro -->
+        <div id="signupSection" class="form-section">
+            <h2>Cadastro</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <input type="text" id="signupName" placeholder=" ">
+                    <label for="signupName">Nome</label>
+                    <small></small>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="signupEmail" placeholder=" ">
+                    <label for="signupEmail">Email</label>
+                    <small></small>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signupPassword" placeholder=" ">
+                    <label for="signupPassword">Senha</label>
+                    <span class="toggle-password" id="toggleSignupPassword">👁️</span>
+                    <small></small>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signupConfirmPassword" placeholder=" ">
+                    <label for="signupConfirmPassword">Confirmar Senha</label>
+                    <small></small>
+                </div>
+                <button type="submit" id="signupBtn">Cadastrar</button>
+            </form>
+            <div class="success"></div>
+            <div class="loader"></div>
+            <div class="progress-bar" id="signupProgress"></div>
+            <div class="switch">
+                <a id="switchToLogin">Já tem conta? Faça login</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Elementos globais
+        const body = document.body;
+        const loginSection = document.getElementById('loginSection');
+        const signupSection = document.getElementById('signupSection');
+        const switchToSignup = document.getElementById('switchToSignup');
+        const switchToLogin = document.getElementById('switchToLogin');
+
+        // Função para alternar seções com animação
+        function switchSection(from, to, newClass) {
+            from.classList.remove('active');
+            setTimeout(() => {
+                body.className = newClass;
+                to.classList.add('active');
+            }, 250); // Tempo da transição
+        }
+
+        switchToSignup.addEventListener('click', () => switchSection(loginSection, signupSection, 'signup'));
+        switchToLogin.addEventListener('click', () => switchSection(signupSection, loginSection, 'login'));
+
+        // Validação em tempo real para Login
+        document.getElementById('loginEmail').addEventListener('input', () => validateField('loginEmail', 'email'));
+        document.getElementById('loginPassword').addEventListener('input', () => validateField('loginPassword', 'password'));
+
+        // Toggle senha para Login
+        document.getElementById('toggleLoginPassword').addEventListener('click', () => togglePassword('loginPassword', 'toggleLoginPassword'));
+
+        // Formulário de Login
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const valid = validateForm('login');
+            if (valid) await submitForm('login', 'http://localhost:8080/login'); // Ajuste para sua API
+        });
+
+        // Validação em tempo real para Cadastro
+        document.getElementById('signupName').addEventListener('input', () => validateField('signupName', 'name'));
+        document.getElementById('signupEmail').addEventListener('input', () => validateField('signupEmail', 'email'));
+        document.getElementById('signupPassword').addEventListener('input', () => validateField('signupPassword', 'password'));
+        document.getElementById('signupConfirmPassword').addEventListener('input', () => validateField('signupConfirmPassword', 'confirmPassword'));
+
+        // Toggle senha para Cadastro
+        document.getElementById('toggleSignupPassword').addEventListener('click', () => togglePassword('signupPassword', 'toggleSignupPassword'));
+
+        // Formulário de Cadastro
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const valid = validateForm('signup');
+            if (valid) await submitForm('signup', 'http://localhost:8080/signup'); // Ajuste para sua API
+        });
+
+        // Funções auxiliares
+        function validateField(id, type) {
+            const input = document.getElementById(id);
+            const parent = input.parentElement;
+            const small = parent.querySelector('small');
+            small.classList.remove('show');
+
+            if (type === 'email') {
+                if (input.value.trim() === '') {
+                    setError(input, 'Digite um email');
+                    return false;
+                } else if (!validateEmail(input.value)) {
+                    setError(input, 'Email inválido');
+                    return false;
+                } else {
+                    setSuccess(input);
+                    return true;
+                }
+            } else if (type === 'password') {
+                if (input.value.trim() === '') {
+                    setError(input, 'Digite sua senha');
+                    return false;
+                } else if (input.value.length < 6) {
+                    setError(input, 'No mínimo 6 caracteres');
+                    return false;
+                } else {
+                    setSuccess(input);
+                    return true;
+                }
+            } else if (type === 'name') {
+                if (input.value.trim() === '') {
+                    setError(input, 'Digite seu nome');
+                    return false;
+                } else {
+                    setSuccess(input);
+                    return true;
+                }
+            } else if (type === 'confirmPassword') {
+                const password = document.getElementById('signupPassword').value;
+                if (input.value !== password) {
+                    setError(input, 'Senhas não coincidem');
+                    return false;
+                } else {
+                    setSuccess(input);
+                    return true;
+                }
+            }
+            return true;
+        }
+
+        function validateForm(type) {
+            let valid = true;
+            if (type === 'login') {
+                if (!validateField('loginEmail', 'email')) valid = false;
+                if (!validateField('loginPassword', 'password')) valid = false;
+            } else {
+                if (!validateField('signupName', 'name')) valid = false;
+                if (!validateField('signupEmail', 'email')) valid = false;
+                if (!validateField('signupPassword', 'password')) valid = false;
+                if (!validateField('signupConfirmPassword', 'confirmPassword')) valid = false;
+            }
+            return valid;
+        }
+
+        async function submitForm(type, url) {
+            const loader = document.querySelector(`#${type}Section .loader`);
+            const successMsg = document.querySelector(`#${type}Section .success`);
+            const progressBar = document.getElementById(`${type}Progress`);
+            const btn = document.getElementById(`${type}Btn`);
+
+            loader.style.display = 'block';
+            btn.disabled = true;
+            btn.textContent = type === 'login' ? 'Entrando...' : 'Cadastrando...';
+            progressBar.style.width = '100%';
+
+            try {
+                const data = type === 'login' 
+                    ? { email: document.getElementById('loginEmail').value, password: document.getElementById('loginPassword').value }
+                    : { name: document.getElementById('signupName').value, email: document.getElementById('signupEmail').value, password: document.getElementById('signupPassword').value };
+                
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    successMsg.textContent = type === 'login' ? 'Login realizado!' : 'Cadastro realizado!';
+                    successMsg.classList.add('show');
+                    setTimeout(() => window.location.href = '/dashboard', 2000); // Redireciona após sucesso
+                } else {
+                    throw new Error('Erro no ' + type);
+                }
+            } catch (error) {
+                setError(document.getElementById(`${type}Email`), error.message);
+            }
+
+            loader.style.display = 'none';
+            btn.disabled = false;
+            btn.textContent = type === 'login' ? 'Entrar' : 'Cadastrar';
+            progressBar.style.width = '0%';
+        }
+
+        function togglePassword(passwordId, toggleId) {
+            const password = document.getElementById(passwordId);
+            const toggle = document.getElementById(toggleId);
+            const type = password.type === 'password' ? 'text' : 'password';
+            password.type = type;
+            toggle.textContent = type === 'password' ? '👁️' : '🙈';
+        }
+
+        function setError(input, message) {
+            const parent = input.parentElement;
+            const small = parent.querySelector('small');
+            small.textContent = message;
+            small.classList.add('show');
+            input.style.borderColor = '#ff4b4b';
+        }
+
+        function setSuccess(input) {
+            const parent = input.parentElement;
+            const small = parent.querySelector('small');
+            small.classList.remove('show');
+            input.style.borderColor = '#4fff4b';
+        }
+
+        function validateEmail(email) {
+            return /\S+@\S+\.\S+/.test(email);
+        }
+    </script>
+</body>
+</html>
